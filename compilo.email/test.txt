@@ -1,0 +1,8 @@
+recieve abc@def.com;
+addToSpam abc@def.com;
+addToSpam example@example.com;
+recieve abc@def.com;
+recieve example@example.com;
+removeFromSpam example@example.com;
+recieve example@example.com;
+inbox;

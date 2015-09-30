@@ -1,0 +1,69 @@
+package email;
+
+import email.EmailServer;
+import email.SymbolTable;
+
+parser code {:
+    
+    public void report_error(String message, Object info) {
+        StringBuffer m = new StringBuffer("Error");
+		m.append (info.toString());
+        m.append(" : "+message);
+        System.err.println(m.toString());
+    }
+   
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
+
+    private EmailServer eServer;
+    private SymbolTable table = null;
+
+    public SymbolTable getTable () {
+		if (table == null) table = new SymbolTable ();
+		return table;
+    }
+
+    public EmailServer getServer () {
+		return eServer;
+    }
+
+    public void setServer (EmailServer eServer) {
+		this.eServer = eServer;
+    }
+
+:}
+
+terminal 			TERM;
+terminal			SEND, RECIEVE;
+terminal			ADDTOSPAM, REMOVEFROMSPAM;
+terminal			INBOX;
+terminal String 	EMAIL;
+
+   
+nonterminal Object Commandes, Definitions, Definition, Instruction;
+nonterminal String address;
+
+Commandes		::=	Definitions
+				;
+
+Definitions 	::= 
+				| 	Definitions Definition
+				;
+	
+Definition		::= Instruction TERM
+				;
+
+
+		
+Instruction 	::= 
+				|SEND address:a				{: getServer().send(a); :}
+				|RECIEVE address:a			{: getServer().recieve(a); :}
+				|ADDTOSPAM address:a		{: getServer().addToBlockedkList(a); :}
+				|REMOVEFROMSPAM address:a	{: getServer().removeFromBlockedkList(a); :}
+				|INBOX						{: getServer().showInbox(); :}
+				;
+		
+address 		::=	EMAIL:e					{: RESULT = e; :}
+				;

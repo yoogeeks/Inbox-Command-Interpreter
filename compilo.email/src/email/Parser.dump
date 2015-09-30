@@ -1,0 +1,218 @@
+===== STDERR =====
+
+===== STDOUT =====
+
+===== Terminals =====
+[0]EOF [1]error [2]TERM [3]SEND [4]RECIEVE 
+[5]ADDTOSPAM [6]REMOVEFROMSPAM [7]INBOX [8]EMAIL 
+
+===== Non terminals =====
+[0]Commandes [1]Definitions [2]Definition [3]Instruction [4]address 
+
+
+===== Productions =====
+[0] Commandes ::= Definitions 
+[1] $START ::= Commandes EOF 
+[2] Definitions ::= 
+[3] Definitions ::= Definitions Definition 
+[4] Definition ::= Instruction TERM 
+[5] Instruction ::= 
+[6] Instruction ::= SEND address 
+[7] Instruction ::= RECIEVE address 
+[8] Instruction ::= ADDTOSPAM address 
+[9] Instruction ::= REMOVEFROMSPAM address 
+[10] Instruction ::= INBOX 
+[11] address ::= EMAIL 
+===== Viable Prefix Recognizer =====
+START lalr_state [0]: {
+  [Definitions ::= (*) , {EOF TERM SEND RECIEVE ADDTOSPAM REMOVEFROMSPAM INBOX }]
+  [$START ::= (*) Commandes EOF , {EOF }]
+  [Definitions ::= (*) Definitions Definition , {EOF TERM SEND RECIEVE ADDTOSPAM REMOVEFROMSPAM INBOX }]
+  [Commandes ::= (*) Definitions , {EOF }]
+}
+transition on Definitions to state [2]
+transition on Commandes to state [1]
+
+-------------------
+lalr_state [1]: {
+  [$START ::= Commandes (*) EOF , {EOF }]
+}
+transition on EOF to state [16]
+
+-------------------
+lalr_state [2]: {
+  [Instruction ::= (*) ADDTOSPAM address , {TERM }]
+  [Instruction ::= (*) , {TERM }]
+  [Instruction ::= (*) INBOX , {TERM }]
+  [Instruction ::= (*) RECIEVE address , {TERM }]
+  [Definition ::= (*) Instruction TERM , {EOF TERM SEND RECIEVE ADDTOSPAM REMOVEFROMSPAM INBOX }]
+  [Instruction ::= (*) REMOVEFROMSPAM address , {TERM }]
+  [Instruction ::= (*) SEND address , {TERM }]
+  [Definitions ::= Definitions (*) Definition , {EOF TERM SEND RECIEVE ADDTOSPAM REMOVEFROMSPAM INBOX }]
+  [Commandes ::= Definitions (*) , {EOF }]
+}
+transition on INBOX to state [9]
+transition on ADDTOSPAM to state [8]
+transition on RECIEVE to state [7]
+transition on Instruction to state [6]
+transition on SEND to state [5]
+transition on REMOVEFROMSPAM to state [4]
+transition on Definition to state [3]
+
+-------------------
+lalr_state [3]: {
+  [Definitions ::= Definitions Definition (*) , {EOF TERM SEND RECIEVE ADDTOSPAM REMOVEFROMSPAM INBOX }]
+}
+
+-------------------
+lalr_state [4]: {
+  [Instruction ::= REMOVEFROMSPAM (*) address , {TERM }]
+  [address ::= (*) EMAIL , {TERM }]
+}
+transition on EMAIL to state [11]
+transition on address to state [15]
+
+-------------------
+lalr_state [5]: {
+  [Instruction ::= SEND (*) address , {TERM }]
+  [address ::= (*) EMAIL , {TERM }]
+}
+transition on EMAIL to state [11]
+transition on address to state [14]
+
+-------------------
+lalr_state [6]: {
+  [Definition ::= Instruction (*) TERM , {EOF TERM SEND RECIEVE ADDTOSPAM REMOVEFROMSPAM INBOX }]
+}
+transition on TERM to state [13]
+
+-------------------
+lalr_state [7]: {
+  [Instruction ::= RECIEVE (*) address , {TERM }]
+  [address ::= (*) EMAIL , {TERM }]
+}
+transition on EMAIL to state [11]
+transition on address to state [12]
+
+-------------------
+lalr_state [8]: {
+  [address ::= (*) EMAIL , {TERM }]
+  [Instruction ::= ADDTOSPAM (*) address , {TERM }]
+}
+transition on EMAIL to state [11]
+transition on address to state [10]
+
+-------------------
+lalr_state [9]: {
+  [Instruction ::= INBOX (*) , {TERM }]
+}
+
+-------------------
+lalr_state [10]: {
+  [Instruction ::= ADDTOSPAM address (*) , {TERM }]
+}
+
+-------------------
+lalr_state [11]: {
+  [address ::= EMAIL (*) , {TERM }]
+}
+
+-------------------
+lalr_state [12]: {
+  [Instruction ::= RECIEVE address (*) , {TERM }]
+}
+
+-------------------
+lalr_state [13]: {
+  [Definition ::= Instruction TERM (*) , {EOF TERM SEND RECIEVE ADDTOSPAM REMOVEFROMSPAM INBOX }]
+}
+
+-------------------
+lalr_state [14]: {
+  [Instruction ::= SEND address (*) , {TERM }]
+}
+
+-------------------
+lalr_state [15]: {
+  [Instruction ::= REMOVEFROMSPAM address (*) , {TERM }]
+}
+
+-------------------
+lalr_state [16]: {
+  [$START ::= Commandes EOF (*) , {EOF }]
+}
+
+-------------------
+-------- ACTION_TABLE --------
+From state #0
+ [term 0:REDUCE(with prod 2)] [term 2:REDUCE(with prod 2)]
+ [term 3:REDUCE(with prod 2)] [term 4:REDUCE(with prod 2)]
+ [term 5:REDUCE(with prod 2)] [term 6:REDUCE(with prod 2)]
+ [term 7:REDUCE(with prod 2)]
+From state #1
+ [term 0:SHIFT(to state 16)]
+From state #2
+ [term 0:REDUCE(with prod 0)] [term 2:REDUCE(with prod 5)]
+ [term 3:SHIFT(to state 5)] [term 4:SHIFT(to state 7)]
+ [term 5:SHIFT(to state 8)] [term 6:SHIFT(to state 4)]
+ [term 7:SHIFT(to state 9)]
+From state #3
+ [term 0:REDUCE(with prod 3)] [term 2:REDUCE(with prod 3)]
+ [term 3:REDUCE(with prod 3)] [term 4:REDUCE(with prod 3)]
+ [term 5:REDUCE(with prod 3)] [term 6:REDUCE(with prod 3)]
+ [term 7:REDUCE(with prod 3)]
+From state #4
+ [term 8:SHIFT(to state 11)]
+From state #5
+ [term 8:SHIFT(to state 11)]
+From state #6
+ [term 2:SHIFT(to state 13)]
+From state #7
+ [term 8:SHIFT(to state 11)]
+From state #8
+ [term 8:SHIFT(to state 11)]
+From state #9
+ [term 2:REDUCE(with prod 10)]
+From state #10
+ [term 2:REDUCE(with prod 8)]
+From state #11
+ [term 2:REDUCE(with prod 11)]
+From state #12
+ [term 2:REDUCE(with prod 7)]
+From state #13
+ [term 0:REDUCE(with prod 4)] [term 2:REDUCE(with prod 4)]
+ [term 3:REDUCE(with prod 4)] [term 4:REDUCE(with prod 4)]
+ [term 5:REDUCE(with prod 4)] [term 6:REDUCE(with prod 4)]
+ [term 7:REDUCE(with prod 4)]
+From state #14
+ [term 2:REDUCE(with prod 6)]
+From state #15
+ [term 2:REDUCE(with prod 9)]
+From state #16
+ [term 0:REDUCE(with prod 1)]
+------------------------------
+-------- REDUCE_TABLE --------
+From state #0
+ [non term 0->state 1] [non term 1->state 2]
+From state #1
+From state #2
+ [non term 2->state 3] [non term 3->state 6]
+From state #3
+From state #4
+ [non term 4->state 15]
+From state #5
+ [non term 4->state 14]
+From state #6
+From state #7
+ [non term 4->state 12]
+From state #8
+ [non term 4->state 10]
+From state #9
+From state #10
+From state #11
+From state #12
+From state #13
+From state #14
+From state #15
+From state #16
+-----------------------------

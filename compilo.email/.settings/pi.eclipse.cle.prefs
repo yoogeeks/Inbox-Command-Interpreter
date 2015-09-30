@@ -1,0 +1,11 @@
+//src/java_cup/MailSever.cup/cup-compact-red=false
+//src/java_cup/MailSever.cup/cup-debug=false
+//src/java_cup/MailSever.cup/cup-expected-conflicts=0
+//src/java_cup/MailSever.cup/cup-no-positions=false
+//src/java_cup/MailSever.cup/cup-no-scanner=false
+//src/java_cup/MailSever.cup/cup-non-terms=false
+//src/java_cup/MailSever.cup/cup-output=src
+//src/java_cup/MailSever.cup/cup-parser-class=MailSeverCup
+//src/java_cup/MailSever.cup/cup-symbols-class=MailSeverSym
+//src/java_cup/MailSever.cup/cup-symbols-if=true
+eclipse.preferences.version=1
